@@ -5,7 +5,7 @@ import Thomas from './Thomas';
 import Post from './Card';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ScrollView } from 'react-native';
+import { ScrollView, Image } from 'react-native';
 
 import { Button } from '@rneui/themed';
 
@@ -35,10 +35,14 @@ function HomeScreen({ navigation }) {
         <View style={styles.container}>
 
 
+            <Image
+                style={styles.tinyLogo}
+                source={require('./logo.webp')}
+            />
             <StatusBar style="auto" />
-            <Button style={{margin: 10}} onPress={() => setIsModalVisible(true)} title="ouvrir le formulaire"></Button>
-            <Button style={{margin: 10}} onPress={() => navigation.navigate('Book Post')} title="Voir les publications" />
-            <Button style={{margin: 10}} onPress={() => navigation.navigate('New Book Post')} title="Créer un nouveau poste" />
+            {/* <Button style={{margin: 10}} onPress={() => setIsModalVisible(true)} title="ouvrir le formulaire"></Button> */}
+            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('Book Post')} title="Voir les publications" />
+            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('New Book Post')} title="Créer un nouveau poste" />
             {/* <Modal visible={isModalVisible}>
                 <ActivityIndicator />
                 <TouchableOpacity onPress={() => setIsModalVisible(false)}><Text style={styles.red}>Fermer la modale</Text></TouchableOpacity>
@@ -77,7 +81,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 50,
-        
+
     },
     super: {
         flex: 1,
@@ -91,9 +95,13 @@ const styles = StyleSheet.create({
         backgroundColor: "yellow",
         padding: 100,
     },
-    
-    
-    
-   
+    tinyLogo: {
+        width: 275,
+        height: 150,
+    },
+
+
+
+
 
 });
