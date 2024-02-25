@@ -16,6 +16,7 @@ function UpdatePostScreen({ route, navigation }) {
   const [url_image, setUrl_image] = useState('');
   const [publisher, setPublisher] = useState('');
   const [rate, setRate] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetchPost();
@@ -71,12 +72,12 @@ function UpdatePostScreen({ route, navigation }) {
         onChangeText={setUrl_image}
         mode="outlined"
       />
-      <PaperTextInput
+      {/* <PaperTextInput
         label="Publisher"
         value={publisher}
         onChangeText={setPublisher}
         mode="outlined"
-      />
+      /> */}
       <PaperTextInput
         label="Rate"
         value={rate}
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#77B5FE',
   },
   title: {
     fontSize: 24,

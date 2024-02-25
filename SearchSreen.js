@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator, TextInput } from 'react-native';
 import Post from './Card';
 import { ScrollView } from 'react-native';
 import { Button } from 'react-native';
@@ -10,16 +10,17 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-function ScrollViewScreen({ navigation }) {
+function SearchScreen({ navigation }) {
     const [postes, setPostes] = useState([]);
-    
+    const [searchText, setSearchText] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         getPostes();
     }, []);
 
     async function getPostes() {
-        const { data } = await supabase.from("posts").select('*');
+        const { data } = await supabase.from("posts").select();
         setPostes(data);
     }
 
@@ -39,40 +40,29 @@ function ScrollViewScreen({ navigation }) {
     }
 
 
-    function sortByRecent() {
-        const sortedPosts = [...postes].sort((a, b) => b.id - a.id);
-        setPostes(sortedPosts);
-    }
-
-    function sortByOldest() {
-        const sortedPosts = [...postes].sort((a, b) => a.id - b.id);
-        setPostes(sortedPosts);
-    }
-    function refresh() {
-        getPostes();
+    function filterPosts() {
+        return postes.filter(post => post.title.toLowerCase().includes(searchText.toLowerCase()));
     }
 
     return (
 
         <View style={styles.container}>
-            <Button color="white" onPress={refresh} title="refresh the screen" />
-            <View style={styles.crud}>
-                <View style={styles.update}>
-                    <Button onPress={sortByRecent} title="Sort by recent" color="white" />
-                </View>
-                <View style={styles.update}>
-                    <Button onPress={sortByOldest} title="Sort by oldest" color="white" />
-                </View>
-
-
-
-            </View>
-
-
+            <TextInput
+                style={styles.searchBar}
+                value={searchText}
+                onChangeText={setSearchText}
+                placeholder="Search..."
+            />
             <ScrollView>
-                {postes.map((post, index) => (
+                {filterPosts().map((post, index) => (
                     <View key={index}>
-                        <Post title={post.title} content={post.content} publisher={post.publisher} url_image={post.url_image} rate={post.rate} />
+                        <Post
+                            title={post.title}
+                            content={post.content}
+                            publisher={post.publisher}
+                            url_image={post.url_image}
+                            rate={post.rate}
+                        />
                         <View style={styles.crud}>
                             <View style={styles.delete}>
                                 <Button color="white" onPress={() => handleDelete(post.id)} title="Delete" />
@@ -83,17 +73,14 @@ function ScrollViewScreen({ navigation }) {
                         </View>
 
                     </View>
-
                 ))}
+
             </ScrollView>
-            {/* <View style={styles.bottomButtonContainer}>
-        <Button onPress={() => navigation.navigate('Home')} title="Home" />
-      </View> */}
         </View>
     );
 }
 
-export default ScrollViewScreen;
+export default SearchScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -125,7 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
 
         margin: 10,
-
+        
     },
     delete: {
         backgroundColor: 'red',
@@ -136,7 +123,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
         marginLeft: 5,
         borderRadius: 5,
-    }
-
+    },
 
 });

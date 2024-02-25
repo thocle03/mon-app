@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
-import Thomas from './Thomas';
-import Post from './Card';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScrollView, Image } from 'react-native';
+import SearchScreen from './SearchSreen';
 
 import { Button } from '@rneui/themed';
 
@@ -17,23 +16,33 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 
 
-function HomeScreen({ navigation }) {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+function HomeScreen({ navigation, isAdm, userConnect }) {
+    // const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [postes, setPostes] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    console.log(isAdm);
 
     useEffect(() => {
         getPostes();
+        getUsers();
     }, []);
 
     async function getPostes() {
         const { data } = await supabase.from("posts").select();
         setPostes(data);
     }
+    async function getUsers() {
+        const { data } = await supabase.from('users').select();
+        setUsers(data);
+    }
+    
 
     return (
         <View style={styles.container}>
-
+            <Text>Bienvenue : {userConnect}</Text>
 
             <Image
                 style={styles.tinyLogo}
@@ -41,8 +50,13 @@ function HomeScreen({ navigation }) {
             />
             <StatusBar style="auto" />
             {/* <Button style={{margin: 10}} onPress={() => setIsModalVisible(true)} title="ouvrir le formulaire"></Button> */}
-            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('Book Post')} title="Voir les publications" />
-            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('New Book Post')} title="Créer un nouveau poste" />
+            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('Book Post')} title="See the book posts" />
+            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('New Book Post')} title="Create a new post" />
+            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('Search post')} title="Search post" />
+            <Button style={{ margin: 10 }} onPress={() => navigation.navigate('Login')} title="Login" />
+            {isAdm == 1 ? <Button style={{ margin: 10 }} onPress={() => navigation.navigate('Users')} title="Users" />
+            : null}
+            
             {/* <Modal visible={isModalVisible}>
                 <ActivityIndicator />
                 <TouchableOpacity onPress={() => setIsModalVisible(false)}><Text style={styles.red}>Fermer la modale</Text></TouchableOpacity>
@@ -99,9 +113,5 @@ const styles = StyleSheet.create({
         width: 275,
         height: 150,
     },
-
-
-
-
 
 });

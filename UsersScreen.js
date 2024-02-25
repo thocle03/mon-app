@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
-import Post from './Card';
+import User from './User';
 import { ScrollView } from 'react-native';
 import { Button } from 'react-native';
 import { createClient } from '@supabase/supabase-js';
@@ -10,46 +10,46 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-function ScrollViewScreen({ navigation }) {
-    const [postes, setPostes] = useState([]);
-    
+function UsersScreen({ navigation }) {
+    const [users, setUsers] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        getPostes();
+        getUsers();
     }, []);
 
-    async function getPostes() {
-        const { data } = await supabase.from("posts").select('*');
-        setPostes(data);
+    async function getUsers() {
+        const { data } = await supabase.from("users").select();
+        setUsers(data);
     }
 
 
-    async function handleDelete(postId) {
-        const { error } = await supabase.from('posts').delete().eq('id', postId);
+    async function handleDelete(userId) {
+        const { error } = await supabase.from('users').delete().eq('id', userId);
         if (error) {
-            console.error('Erreur lors de la suppression de l\'article:', error.message);
+            console.error('Erreur in delete user:', error.message);
             return;
         }
-        getPostes();
+        getUsers();
     }
 
-    function handleUpdate(postId) {
+    function handleUpdate(userId) {
 
-        navigation.navigate('Update your post', { postId: postId });
+        navigation.navigate('Update your user', { userId: userId });
     }
 
 
     function sortByRecent() {
-        const sortedPosts = [...postes].sort((a, b) => b.id - a.id);
-        setPostes(sortedPosts);
+        const sortedUsers = [...users].sort((a, b) => b.id - a.id);
+        setUsers(sortedUsers);
     }
 
     function sortByOldest() {
-        const sortedPosts = [...postes].sort((a, b) => a.id - b.id);
-        setPostes(sortedPosts);
+        const sortedUsers = [...users].sort((a, b) => a.id - b.id);
+        setUsers(sortedUsers);
     }
     function refresh() {
-        getPostes();
+        getUsers();
     }
 
     return (
@@ -70,30 +70,31 @@ function ScrollViewScreen({ navigation }) {
 
 
             <ScrollView>
-                {postes.map((post, index) => (
+                {users.map((user, index) => (
                     <View key={index}>
-                        <Post title={post.title} content={post.content} publisher={post.publisher} url_image={post.url_image} rate={post.rate} />
+                        <User username={user.username} password={user.password} adm={user.adm} />
                         <View style={styles.crud}>
                             <View style={styles.delete}>
-                                <Button color="white" onPress={() => handleDelete(post.id)} title="Delete" />
+                                <Button color="white" onPress={() => handleDelete(user.id)} title="Delete" />
                             </View>
                             <View style={styles.update}>
-                                <Button color="white" onPress={() => handleUpdate(post.id)} title="Update" />
+                                <Button color="white" onPress={() => handleUpdate(user.id)} title="Update" />
                             </View>
                         </View>
 
                     </View>
 
                 ))}
+                <View style={styles.create}>
+                    <Button color="white" margin="20" onPress={() => navigation.navigate('SignUp')} title="Create a new user" />
+                </View>
             </ScrollView>
-            {/* <View style={styles.bottomButtonContainer}>
-        <Button onPress={() => navigation.navigate('Home')} title="Home" />
-      </View> */}
+            
         </View>
     );
 }
 
-export default ScrollViewScreen;
+export default UsersScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -123,7 +124,6 @@ const styles = StyleSheet.create({
     crud: {
         flexDirection: 'row',
         justifyContent: 'center',
-
         margin: 10,
 
     },
@@ -136,7 +136,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
         marginLeft: 5,
         borderRadius: 5,
+    },
+    create: {
+        backgroundColor: 'blue',
+        marginBottom: 50,
+        marginTop: 30,
+        borderRadius: 5,
     }
-
-
 });

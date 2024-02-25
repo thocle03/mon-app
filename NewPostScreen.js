@@ -17,13 +17,15 @@ const supabaseUrl = 'https://zfoxpvufbkikcipthsup.supabase.co'
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpmb3hwdnVmYmtpa2NpcHRoc3VwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY4ODYxNDgsImV4cCI6MjAyMjQ2MjE0OH0.3-wtnTfPxRlf86E9hP86U2wymr4gHLtpxEsTgo1q18k "
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-function NewPostScreen({ navigation }) {
+function NewPostScreen({ navigation, publisher }) {
     const [url_image, setUrl_image] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [publisher, setPublisher] = useState('');
+    
     const [rate, setRate] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    console.log(publisher);
     const createBooks = async () => {
         try {
             const { data, error } = await supabase.from('posts').insert([
@@ -31,7 +33,7 @@ function NewPostScreen({ navigation }) {
                     title: title,
                     content: content,
                     url_image: url_image,
-                    publisher: publisher,
+                    publisher: Number(publisher),
                     rate: rate,
                 },
             ]);
@@ -67,13 +69,7 @@ function NewPostScreen({ navigation }) {
                     mode="outlined"
 
                 />
-                <PaperTextInput
-                    value={publisher}
-                    onChangeText={setPublisher}
-                    label="New book Publisher"
-                    mode="outlined"
-
-                />
+                
                 <PaperTextInput
                     value={rate}
                     onChangeText={setRate}
@@ -101,12 +97,7 @@ function NewPostScreen({ navigation }) {
 export default NewPostScreen;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+    
     super: {
         flex: 1,
         backgroundColor: '#fff',
@@ -134,6 +125,7 @@ const styles = StyleSheet.create({
     create: {
         flex: 1,
         padding: 20,
+        backgroundColor: '#77B5FE',
     },
     title: {
         fontSize: 24,
