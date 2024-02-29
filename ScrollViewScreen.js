@@ -83,6 +83,7 @@ function ScrollViewScreen({ navigation, isLoggedIn, isAdm }) {
                             </View>
                         </View>
                     : null}
+
                     {isAdm == 1 ? 
                         <View style={styles.crud}>
                             <View style={styles.delete}>
@@ -97,9 +98,7 @@ function ScrollViewScreen({ navigation, isLoggedIn, isAdm }) {
 
                 ))}
             </ScrollView>
-            {/* <View style={styles.bottomButtonContainer}>
-        <Button onPress={() => navigation.navigate('Home')} title="Home" />
-      </View> */}
+            
         </View>
     );
 }

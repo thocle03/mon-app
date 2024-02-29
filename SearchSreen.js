@@ -10,10 +10,10 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-function SearchScreen({ navigation }) {
+function SearchScreen({ navigation, isAdm, isLoggedIn }) {
     const [postes, setPostes] = useState([]);
     const [searchText, setSearchText] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
 
     useEffect(() => {
         getPostes();
@@ -63,6 +63,7 @@ function SearchScreen({ navigation }) {
                             url_image={post.url_image}
                             rate={post.rate}
                         />
+                        {isLoggedIn == post.publisher ? 
                         <View style={styles.crud}>
                             <View style={styles.delete}>
                                 <Button color="white" onPress={() => handleDelete(post.id)} title="Delete" />
@@ -71,6 +72,18 @@ function SearchScreen({ navigation }) {
                                 <Button color="white" onPress={() => handleUpdate(post.id)} title="Update" />
                             </View>
                         </View>
+                    : null}
+
+                    {isAdm == 1 ? 
+                        <View style={styles.crud}>
+                            <View style={styles.delete}>
+                                <Button color="white" onPress={() => handleDelete(post.id)} title="Delete" />
+                            </View>
+                            <View style={styles.update}>
+                                <Button color="white" onPress={() => handleUpdate(post.id)} title="Update" />
+                            </View>
+                        </View>
+                    : null}
 
                     </View>
                 ))}

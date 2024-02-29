@@ -40,19 +40,19 @@ export default function Post(props) {
       <Card >
         <Card.Title>{props.title}</Card.Title>
         <Card.Divider />
-        <Card.Image
-          source={{ uri: props.url_image }} 
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: props.url_image }} style={styles.image} />
           
-        />
+        </View>
         <Text style={{ marginBottom: 10 }}>
           {props.content}
         </Text>
-        <Text style={{ marginBottom: 10, fontSize: 10 }}>
-          {publisher}
-        </Text>
-        <Text style={{ justifyContent: 'center', }}>
-          {props.rate}/10
-        </Text>
+        <View style={styles.bottomContainer}>
+          {/* Text component to display the username of the publisher */}
+          <Text style={styles.publisher}>{publisher}</Text>
+          {/* Text component to display the rating of the book */}
+          <Text style={styles.rate}>{props.rate}/10</Text>
+        </View>
 
 
       </Card>
@@ -63,6 +63,26 @@ export default function Post(props) {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
+  },
+  image: {
+    width: 150,
+    height: 225, 
+    resizeMode: 'cover',
+    marginBottom: 10,
+  },
+  imageContainer: {
+    alignItems: 'center',
+  },
+  bottomContainer: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    alignItems: 'center', 
+  },
+  publisher: {
+    fontSize: 10,
+  },
+  rate: {
+    justifyContent: 'center',
   },
   
 

@@ -37,7 +37,7 @@ export default function App() {
         <Stack.Screen name="Update your post"  component={UpdatePostScreen}/>
         <Stack.Screen name="Update your user"  component={UpdateUserScreen}/>
         <Stack.Screen name="Search post">
-        {({ navigation }) => <SearchScreen navigation={navigation} setIsLoggedIn={setIsLoggedIn} />}
+        {({ navigation }) => <SearchScreen navigation={navigation} isLoggedIn={isLoggedIn} isAdm={isAdm} userConnect={userConnect} />}
         </Stack.Screen>
         <Stack.Screen name="Login" >
         {({ navigation }) => <LoginScreen navigation={navigation} setIsAdm={setIsAdm} setUserConnect={setUserConnect} setIsLoggedIn={setIsLoggedIn} />}
