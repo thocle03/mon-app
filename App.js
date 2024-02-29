@@ -21,8 +21,10 @@ export default function App() {
   
   console.log(isLoggedIn);
   return (
+    //the following lines of codes are for navigation so there is each screen that will be in the application 
+    // and I pass a parameter to some to know if a user is connected or if the currently connected user has administrator rights
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Home">
           {({ navigation }) => <HomeScreen navigation={navigation} isAdm={isAdm} userConnect={userConnect} setIsLoggedIn={setIsLoggedIn} />}
         </Stack.Screen>

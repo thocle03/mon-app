@@ -25,7 +25,7 @@ function UpdatePostScreen({ route, navigation }) {
   async function fetchPost() {
     const { data, error } = await supabase.from('posts').select().eq('id', postId);
     if (error) {
-      console.error('Erreur lors de la récupération de l\'article:', error.message);
+      console.error('Error cant recover posts:', error.message);
       return;
     }
     setPost(data[0]);
@@ -45,7 +45,7 @@ function UpdatePostScreen({ route, navigation }) {
       rate: rate,
     }).eq('id', postId);
     if (error) {
-      console.error('Erreur lors de la mise à jour de l\'article:', error.message);
+      console.error('Error when update post:', error.message);
       return;
     }
     navigation.goBack();
@@ -72,12 +72,7 @@ function UpdatePostScreen({ route, navigation }) {
         onChangeText={setUrl_image}
         mode="outlined"
       />
-      {/* <PaperTextInput
-        label="Publisher"
-        value={publisher}
-        onChangeText={setPublisher}
-        mode="outlined"
-      /> */}
+      
       <PaperTextInput
         label="Rate"
         value={rate}

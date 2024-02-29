@@ -23,7 +23,7 @@ function UpdateUserScreen({ route, navigation }) {
   async function fetchUser() {
     const { data, error } = await supabase.from('users').select().eq('id', userId);
     if (error) {
-      console.error('Erreur lors de la récupération de l\'article:', error.message);
+      console.error('Error recover users:', error.message);
       return;
     }
     setUser(data[0]);
@@ -37,7 +37,7 @@ function UpdateUserScreen({ route, navigation }) {
       password: password,
     }).eq('id', userId);
     if (error) {
-      console.error('Erreur lors de la mise à jour de l utilisateur', error.message);
+      console.error('Error update user', error.message);
       return;
     }
     navigation.goBack();

@@ -27,7 +27,7 @@ function ScrollViewScreen({ navigation }) {
     async function handleDelete(postId) {
         const { error } = await supabase.from('posts').delete().eq('id', postId);
         if (error) {
-            console.error('Erreur lors de la suppression de l\'article:', error.message);
+            console.error('Error when you delete the post:', error.message);
             return;
         }
         getPostes();

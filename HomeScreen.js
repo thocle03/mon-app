@@ -14,7 +14,7 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-
+// home page with button for navigate on each screen where the user who is logged in is authorized to go
 
 function HomeScreen({ navigation, isAdm, userConnect }) {
     // const [isModalVisible, setIsModalVisible] = useState(false);
@@ -42,7 +42,7 @@ function HomeScreen({ navigation, isAdm, userConnect }) {
 
     return (
         <View style={styles.container}>
-            <Text>Bienvenue : {userConnect}</Text>
+            <Text style={styles.userConnect} >Bienvenue : {userConnect}</Text>
 
             <Image
                 style={styles.tinyLogo}
@@ -112,6 +112,13 @@ const styles = StyleSheet.create({
     tinyLogo: {
         width: 275,
         height: 150,
+    },
+    userConnect: {
+        color: "blue",
+        textAlign: 'center',
+        paddingBottom: 20,
+        fontWeight: "bold",
+        
     },
 
 });

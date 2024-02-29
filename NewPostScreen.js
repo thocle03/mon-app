@@ -39,7 +39,7 @@ function NewPostScreen({ navigation, publisher }) {
             ]);
             navigation.goBack();
         } catch (error) {
-            console.log('error gros nul', error.message)
+            console.log('error you cant navigate', error.message)
         }
     };
     return (

@@ -12,7 +12,7 @@ const LoginScreen = ({ navigation , setIsLoggedIn, setIsAdm, setUserConnect }) =
     const [password, setPassword] = useState('');
     
     
-
+    
     const handleLogin = async () => {
         const { data, error } = await supabase
             .from('users')
@@ -22,12 +22,12 @@ const LoginScreen = ({ navigation , setIsLoggedIn, setIsAdm, setUserConnect }) =
             .single();
 
         if (error) {
-            console.error(':( Erreur de connexion:', error.message);
+            console.error(':( Error you cant connect:', error.message);
             return;
         }
 
         if (data) {
-            console.log(':) Connecté avec succès:', data);
+            console.log(':) connect with succed:', data);
             setIsLoggedIn(data.id);
             setIsAdm(data.adm);
             setUserConnect(data.username);

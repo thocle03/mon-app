@@ -11,12 +11,14 @@ const CreateAccountScreen = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    // const for signup if user dont have account
     const handleSignUp = async () => {
         // const { data, error } = await supabase.from('users').select().eq('username', username);
         // if (data.length > 0) {
         //     console.error('Ce nom d\'utilisateur est déjà utilisé.');
         //     return;
         // }
+        // 
         try {
             const { data, error } = await supabase.from('users').insert([
                 {
@@ -26,12 +28,13 @@ const CreateAccountScreen = ({ navigation }) => {
             ]);
             navigation.navigate('Login');
         } catch (error) {
-            console.log('error gros nul', error.message)
+            console.log('error :(', error.message)
         }
         
     };
 
     return (
+        // the front-end of the signup screen
         <View style={styles.container}>
             <Text>Sign Up Page</Text>
             <TextInput

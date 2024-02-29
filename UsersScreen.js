@@ -27,7 +27,7 @@ function UsersScreen({ navigation }) {
     async function handleDelete(userId) {
         const { error } = await supabase.from('users').delete().eq('id', userId);
         if (error) {
-            console.error('Erreur in delete user:', error.message);
+            console.error('Error cant delete user:', error.message);
             return;
         }
         getUsers();
@@ -68,7 +68,9 @@ function UsersScreen({ navigation }) {
 
             </View>
 
-
+            <View style={styles.create}>
+                    <Button color="white" margin="20" onPress={() => navigation.navigate('SignUp')} title="Create a new user" />
+                </View>
             <ScrollView>
                 {users.map((user, index) => (
                     <View key={index}>
@@ -85,9 +87,7 @@ function UsersScreen({ navigation }) {
                     </View>
 
                 ))}
-                <View style={styles.create}>
-                    <Button color="white" margin="20" onPress={() => navigation.navigate('SignUp')} title="Create a new user" />
-                </View>
+                
             </ScrollView>
             
         </View>
@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
     },
     create: {
         backgroundColor: 'blue',
-        marginBottom: 50,
-        marginTop: 30,
+        marginBottom: 20,
+        marginTop: 20,
         borderRadius: 5,
     }
 });
