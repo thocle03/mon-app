@@ -10,7 +10,7 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-function ScrollViewScreen({ navigation }) {
+function ScrollViewScreen({ navigation, isLoggedIn, isAdm }) {
     const [postes, setPostes] = useState([]);
     
 
@@ -73,6 +73,7 @@ function ScrollViewScreen({ navigation }) {
                 {postes.map((post, index) => (
                     <View key={index}>
                         <Post title={post.title} content={post.content} publisher={post.publisher} url_image={post.url_image} rate={post.rate} />
+                        {isLoggedIn == post.publisher ? 
                         <View style={styles.crud}>
                             <View style={styles.delete}>
                                 <Button color="white" onPress={() => handleDelete(post.id)} title="Delete" />
@@ -81,7 +82,17 @@ function ScrollViewScreen({ navigation }) {
                                 <Button color="white" onPress={() => handleUpdate(post.id)} title="Update" />
                             </View>
                         </View>
-
+                    : null}
+                    {isAdm == 1 ? 
+                        <View style={styles.crud}>
+                            <View style={styles.delete}>
+                                <Button color="white" onPress={() => handleDelete(post.id)} title="Delete" />
+                            </View>
+                            <View style={styles.update}>
+                                <Button color="white" onPress={() => handleUpdate(post.id)} title="Update" />
+                            </View>
+                        </View>
+                    : null}
                     </View>
 
                 ))}

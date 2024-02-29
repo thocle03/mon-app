@@ -32,7 +32,7 @@ export default function App() {
           {({ navigation }) => <NewPostScreen navigation={navigation} publisher={isLoggedIn} />}
           </Stack.Screen>
         <Stack.Screen name="Book Post">
-          {({ navigation }) => <ScrollViewScreen navigation={navigation} />}
+          {({ navigation }) => <ScrollViewScreen userConnect={userConnect} navigation={navigation} isLoggedIn={isLoggedIn} isAdm={isAdm} />}
         </Stack.Screen>
         <Stack.Screen name="Update your post"  component={UpdatePostScreen}/>
         <Stack.Screen name="Update your user"  component={UpdateUserScreen}/>
