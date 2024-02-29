@@ -17,7 +17,6 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 // home page with button for navigate on each screen where the user who is logged in is authorized to go
 
 function HomeScreen({ navigation, isAdm, userConnect }) {
-    // const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [postes, setPostes] = useState([]);
     const [users, setUsers] = useState([]);
@@ -57,33 +56,7 @@ function HomeScreen({ navigation, isAdm, userConnect }) {
             {isAdm == 1 ? <Button style={{ margin: 10 }} onPress={() => navigation.navigate('Users')} title="Users" />
             : null}
             
-            {/* <Modal visible={isModalVisible}>
-                <ActivityIndicator />
-                <TouchableOpacity onPress={() => setIsModalVisible(false)}><Text style={styles.red}>Fermer la modale</Text></TouchableOpacity>
-            </Modal>
-            <Thomas firstname="Jacques" />
-            <View style={styles.super}>
-                <View style={{ width: 50, height: 50, backgroundColor: "skyblue" }} />
-                <View style={{ width: 50, height: 50, backgroundColor: "blue" }} />
-                <View style={{ width: 50, height: 50, backgroundColor: "skyblue" }} />
-                <View style={{ width: 50, height: 50, backgroundColor: "blue" }} />
-            </View> */}
-
-
-
-            {/* <View style={styles.container}>
-
-                <ScrollView>
-                    {postes.map((post, index) => (
-                        <View key={index}>
-                            {post.rate == 8 ?
-                                <Post title={post.title} content={post.content} publisher={post.publisher} url_image={post.url_image} rate={post.rate} />
-                                : <Text> </Text>}
-                        </View>
-                    ))}
-                </ScrollView>
-                
-            </View> */}
+           
         </View>
 
 
