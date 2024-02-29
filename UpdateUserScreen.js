@@ -47,13 +47,13 @@ function UpdateUserScreen({ route, navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Update User</Text>
       <PaperTextInput
-        label="Title"
+        label="Username"
         value={username}
         onChangeText={setUsername}
         mode="outlined"
       />
       <PaperTextInput
-        label="Content"
+        label="Password"
         value={password}
         onChangeText={setPassword}
         mode="outlined"

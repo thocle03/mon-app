@@ -6,7 +6,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native';
 import { Button } from '@rneui/themed';
 import { createClient } from '@supabase/supabase-js';
-import App from './App';
 import {
     List,
     Title,
