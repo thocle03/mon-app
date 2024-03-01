@@ -73,13 +73,7 @@ function UpdatePostScreen({ route, navigation }) {
         mode="outlined"
       />
       
-      <PaperTextInput
-        label="Rate"
-        value={rate}
-        onChangeText={setRate}
-        mode="outlined"
-        keyboardType='numeric'
-      />
+      
       <Button mode="contained" onPress={updatePost} style={styles.button}>
         Update Post
       </Button>

@@ -51,7 +51,8 @@ export default function Post(props) {
           {/* Text component to display the username of the publisher */}
           <Text style={styles.publisher}>{publisher}</Text>
           {/* Text component to display the rating of the book */}
-          <Text style={styles.rate}>{props.rate}/10</Text>
+          <Text style={styles.rate}>{String(props.rate)}/10</Text>
+
         </View>
 
 
